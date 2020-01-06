@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+</head>
+<body>
+   
+        <div id="app">
+          <form @submit.prevent="submitForm" novalidate="true">
+            <div v-if="errors.length">
+             <b>Please correct the following error(s):</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </div>
+    
+            <label for="name">Full Name
+             <input id= "name" type="text" v-model="name" placeholder="Your Full Name here">
+            </label><br>
+            <label for="email-address">Email Address
+             <input id="email-address" type="email" v-model="email" placeholder="Your Email Here">
+            </label><br>
+            <label for="address">Home Address
+             <input id= "address" type="text" v-model="address" placeholder="Your address Here">
+            </label><br>
+            
+            <button>Submit</button>
+          </form>
+          <br>
+          <div v-if="isSubmitted">
+          <form>
+            <fieldset>
+              <legend>Your Details</legend>
+              <p>Full Name: <b>{{ name }}</b></p>
+              <p>Email Address: <b>{{ email }}</b></p>
+              <p>Home Address: <b>{{ address }}</b></p>
+            </fieldset>
+          </form>
+        </div>
+          
+        </div>
+      
+      
+      <script>
+      
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            name: "",
+            email: "",
+            address: "",
+            errors: [],
+            isSubmitted: false
+          }
+        },
+        methods: {
+          
+          submitForm() {
+            this.isSubmitted = true;
+            this.errors = [];
+            if (!this.name) {
+              this.errors.push("Name field cannot be empty");
+            }
+            if (this.name.length < 3) {
+              this.errors.push("Name cannot be less than 3 characters.");
+            }
+            if (!this.email) {
+              this.errors.push("Email field cannot be empty.");
+            } 
+            else if (!this.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
+              this.errors.push("Valid email required!");
+            }
+            if(!this.errors.length) return true;
+            
+         
+          }
+          
+        }
+      });
+      </script>  
+</body>
+</html>
