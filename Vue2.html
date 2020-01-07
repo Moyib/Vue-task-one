@@ -75,7 +75,10 @@
             else if (!this.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
               this.errors.push("Valid email required!");
             }
-            if(!this.errors.length) return true;
+            if(!this.errors.length) {
+              this.submitForm() = true;
+              return true;
+            }
             
          
           }
